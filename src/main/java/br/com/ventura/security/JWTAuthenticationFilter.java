@@ -3,6 +3,8 @@ package br.com.ventura.security;
 import static br.com.ventura.security.SecurityConstants.*;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
@@ -71,9 +73,13 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication authResult) throws IOException, ServletException {
+
+		ZoneId defaultZoneId = ZoneId.systemDefault();
+		LocalDate localDate = LocalDate.of(2021, 8, 9);
+
 		ZonedDateTime expirationTimeUTC = ZonedDateTime.now(ZoneOffset.UTC).plus(EXPIRATION_TIME,ChronoUnit.MILLIS);
 		String token = Jwts.builder().setSubject(((User)authResult.getPrincipal()).getUsername())
-				.setExpiration(Date.from(expirationTimeUTC.toInstant()))
+				.setExpiration(/*Date.from(expirationTimeUTC.toInstant())*/Date.from(localDate.atStartOfDay(defaultZoneId).toInstant()))
 				.signWith(SignatureAlgorithm.HS256, SECRET)
 				.compact();
 		

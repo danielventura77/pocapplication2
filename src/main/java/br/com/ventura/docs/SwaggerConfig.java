@@ -30,7 +30,7 @@ public class SwaggerConfig {
                     .paths(regex("/v1.*"))
                     .build()
                 .globalOperationParameters(Collections.singletonList(new ParameterBuilder()
-                    .name("Authorization")
+                    .name("Authorization").defaultValue("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyODQ3ODAwMH0.HFLjK95eiZYKYVWpNqP6vKN4mr8G-G5W7JZhVONOD5s")
                     .description("Bearer token")
                     .modelRef(new ModelRef("string"))
                     .parameterType("header")
@@ -44,9 +44,11 @@ public class SwaggerConfig {
                 .title("PocApplication 2")
                 .description("Prova de Conceito de Arquitetura de um Backend com REST API em Spring Boot")
                 .version("1.0")
-                .contact(new Contact("Daniel Ventura", "https://javaseniordanielventura.herokuapp.com/swagger-ui.html", "dsventura@gmail.com"))
+                .contact(new Contact("Daniel Ventura", "https://github.com/danielventura77/pocapplication2", "dsventura@gmail.com"))
                 .license("Apache License Version 2.0")
                 .licenseUrl("https://www.apache.org/license/LICENSE-2.0")
                 .build();
     }
+
+
 }
